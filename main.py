@@ -87,14 +87,14 @@ def run_scraper_cycle():
 
         log.info(f"Processing keyword: '{keyword}' ({i+1}/{len(config.KEYWORDS)})")
 
-        # 1. Perform Search using DuckDuckGo HTML
+        # 1. Perform Search using Bing
         try:
-            search_result_urls = search_engine.perform_ddg_html_search( # Use DDG HTML search function
+            search_result_urls = search_engine.perform_bing_search( # Use Bing search function
                 keyword,
-                pages_to_request=config.SEARCH_PAGES_TO_REQUEST # Pass the configured number of pages
+                pages_to_request=config.SEARCH_PAGES_TO_REQUEST # Pass the configured number of pages (currently ignored)
             )
         except Exception as e:
-            log.error(f"Unhandled error during DuckDuckGo HTML search for '{keyword}': {e}", exc_info=True)
+            log.error(f"Unhandled error during Bing search for '{keyword}': {e}", exc_info=True)
             search_result_urls = [] # Continue with next keyword
 
         if not search_result_urls:
