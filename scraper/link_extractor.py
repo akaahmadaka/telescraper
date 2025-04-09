@@ -38,9 +38,26 @@ def extract_telegram_links(source_url):
     size_limit_exceeded = False
     soup = None # Initialize soup variable
 
+    # Prepare proxies if configured
+    proxies = None
+    if config.PROXY_HTTP or config.PROXY_HTTPS:
+        proxies = {}
+        if config.PROXY_HTTP:
+            proxies['http'] = config.PROXY_HTTP
+        if config.PROXY_HTTPS:
+            proxies['https'] = config.PROXY_HTTPS
+        log.debug(f"Using proxies: {proxies}")
+
     try:
-        # Use stream=True to download content incrementally
-        response = requests.get(source_url, headers=headers, timeout=20, allow_redirects=True, stream=True)
+        # Use stream=True to download content incrementally, add proxies if defined
+        response = requests.get(
+            source_url,
+            headers=headers,
+            timeout=20,
+            allow_redirects=True,
+            stream=True,
+            proxies=proxies # Add proxies argument
+        )
         response.raise_for_status() # Check for HTTP errors early
 
         # Check content type - only parse HTML

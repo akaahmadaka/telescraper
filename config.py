@@ -35,6 +35,13 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 # Set to None or 0 to disable limit. 5MB = 5 * 1024 * 1024
 MAX_DOWNLOAD_SIZE_BYTES = 5 * 1024 * 1024
 
+# --- Proxy Configuration (for requests in link_extractor.py) ---
+# Leave empty strings if you don't want to use a proxy.
+# Format: "http://username:password@ip_address:port"
+# Example: PROXY_HTTP = "http://user123:pass456@192.168.1.100:8080"
+PROXY_HTTP = "http://rwkpzfsz:5hq5kw37w3x9@38.153.152.244:9594"
+PROXY_HTTPS = "http://rwkpzfsz:5hq5kw37w3x9@38.153.152.244:9594" # Usually the same as HTTP for most providers
+
 # --- Database Configuration ---
 
 # Path to the SQLite database file
