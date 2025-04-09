@@ -1,7 +1,7 @@
 """
 Telescraper - Main application entry point.
 
-Continuously scrapes DuckDuckGo HTML Search results for keywords, extracts Telegram links
+Continuously scrapes DuckDuckGo Search results (via library) for keywords, extracts Telegram links
 from the found pages, stores them in an SQLite database, and avoids re-processing URLs.
 """
 
@@ -87,14 +87,14 @@ def run_scraper_cycle():
 
         log.info(f"Processing keyword: '{keyword}' ({i+1}/{len(config.KEYWORDS)})")
 
-        # 1. Perform Search using Bing
+        # 1. Perform Search using DuckDuckGo library
         try:
-            search_result_urls = search_engine.perform_bing_search( # Use Bing search function
+            search_result_urls = search_engine.perform_duckduckgo_search( # Use DuckDuckGo search function
                 keyword,
                 pages_to_request=config.SEARCH_PAGES_TO_REQUEST # Pass the configured number of pages (currently ignored)
             )
         except Exception as e:
-            log.error(f"Unhandled error during Bing search for '{keyword}': {e}", exc_info=True)
+            log.error(f"Unhandled error during DuckDuckGo search for '{keyword}': {e}", exc_info=True)
             search_result_urls = [] # Continue with next keyword
 
         if not search_result_urls:
